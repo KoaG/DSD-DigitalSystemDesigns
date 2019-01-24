@@ -1,4 +1,5 @@
-module arbiter(
+module arbiter #(
+    parameter TimeQuanta = 4)(  //Time out period 4 clock cycles
     input CLK,SCLR,
     input [3:0]REQ,
     input ACK,
@@ -11,7 +12,7 @@ module arbiter(
                 GNT2 = 3'd3,
                 GNT3 = 3'd4;
     reg [2:0]ps,ns;
-    reg [1:0]count;
+    reg [$clog2(TimeQuanta) - 1:0]count;
     reg time_out;
 
     //Time out signal generator --BEGIN
